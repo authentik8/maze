@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MazeAPI.Models;
 
 namespace MazeAPI.Controllers
 {
@@ -16,11 +17,13 @@ namespace MazeAPI.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/values/<width>/<height>
+        [HttpGet("{width}/{height}")]
+        public Maze Get(int width, int height)
         {
-            return "value";
+            int seed = 4;
+            Maze maze = Maze.Generate(seed, width, height);
+            return maze;
         }
 
         // POST api/values
