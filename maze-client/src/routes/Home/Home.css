@@ -1,1 +1,8 @@
-﻿
+﻿.Home .jumbotron {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.Home .jumbotron h3 {
+    margin-bottom: 2rem;
+}
