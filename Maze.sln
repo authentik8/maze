@@ -3,7 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeAPI", "MazeAPI\MazeAPI.csproj", "{AC09D992-AA59-42EE-8FB5-3516E9741D67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeAPI", "MazeAPI\MazeAPI.csproj", "{AC09D992-AA59-42EE-8FB5-3516E9741D67}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "maze-client", "maze-client\", "{B4E8177B-7B3B-426A-A3A2-CDD7CB8B2FBE}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_54108"
+		Debug.AspNetCompiler.PhysicalPath = "maze-client\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54108\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_54108"
+		Release.AspNetCompiler.PhysicalPath = "maze-client\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54108\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "54108"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +35,10 @@ Global
 		{AC09D992-AA59-42EE-8FB5-3516E9741D67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC09D992-AA59-42EE-8FB5-3516E9741D67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC09D992-AA59-42EE-8FB5-3516E9741D67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E8177B-7B3B-426A-A3A2-CDD7CB8B2FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E8177B-7B3B-426A-A3A2-CDD7CB8B2FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E8177B-7B3B-426A-A3A2-CDD7CB8B2FBE}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E8177B-7B3B-426A-A3A2-CDD7CB8B2FBE}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
