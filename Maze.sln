@@ -23,6 +23,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "maze-client", "maze-client\
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "54108"
+		SlnRelativePath = "maze-client\"
 	EndProjectSection
 EndProject
 Global

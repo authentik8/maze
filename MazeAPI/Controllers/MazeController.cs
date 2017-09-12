@@ -14,7 +14,12 @@ namespace MazeAPI.Controllers
         [HttpGet("{width}x{height}?seed={seedStr}")]
         public Maze Get(int width, int height, string seedStr)
         {
-            int.TryParse(seedStr, out int seed);
+            int seed;
+            if (seedStr != null) {
+                int.TryParse(seedStr, out seed);
+            } else {
+                seed = new Random().Next();
+            }
 
             Maze maze = Maze.Generate(seed, width, height);
             return maze;
