@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/maze/10x10",
+      "launchUrl": "api/maze/20",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

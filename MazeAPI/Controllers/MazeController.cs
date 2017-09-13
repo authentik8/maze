@@ -10,9 +10,9 @@ namespace MazeAPI.Controllers
     [Route("api/[controller]")]
     public class MazeController : Controller
     {
-        // GET api/maze/<width>/<height>
-        [HttpGet("{width}x{height}")]
-        public Maze Get(int width, int height, string seedStr)
+        // GET api/maze/<size>
+        [HttpGet("{size}")]
+        public Maze Get(int size, string seedStr)
         {
             int seed;
             if (seedStr != null) {
@@ -21,7 +21,7 @@ namespace MazeAPI.Controllers
                 seed = new Random().Next();
             }
 
-            Maze maze = Maze.Generate(seed, width, height);
+            Maze maze = Maze.Generate(seed, size, size);
             return maze;
         }
     }

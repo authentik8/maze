@@ -16,8 +16,8 @@ export class Maze extends React.Component {
   }
 
   componentDidMount() {
-    const { width, height } = this.props
-    fetch(`${API_URL}/maze/${width}x${height}`)
+    const { size } = this.props
+    fetch(`${API_URL}/maze/${size}`)
       .then(res => {
         if (res.status !== 200) {
           console.error('Error while retrieving maze from API')
