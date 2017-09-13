@@ -30,7 +30,7 @@ export class MazeCell extends React.Component {
       style.backgroundColor = '#72DB75'
       style.borderLeft = '#72DB75'
     } else if (this.onPath()) {
-      style.backgroundColor = '#227de5'
+      style.backgroundColor = '#a0c4ff'
     }
 
     return (
