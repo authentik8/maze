@@ -34,6 +34,7 @@ namespace MazeAPI.Models {
             int row = width / 2;
             int col = height / 2;
 
+            // Mark the center of the maze as the goal cell
             MazeCell origin = maze.Cells[row, col];
             origin.MakeGoal();
 
@@ -111,6 +112,11 @@ namespace MazeAPI.Models {
                     //Debug.WriteLine($"#MazeAPI Retracing steps to [{row}, {col}]");
                 }
             }
+
+            // Open up the top-left cell as the starting point
+            MazeCell start = maze.cells[0, 0];
+            start.OpenLeft();
+            start.MakeStart();
 
             return maze;
         }
