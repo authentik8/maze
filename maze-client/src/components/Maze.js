@@ -107,7 +107,7 @@ export class Maze extends React.Component {
     //const { width, height } = this.props
     const { maze, path } = this.state
 
-    const rows = maze.cells.map((row, index) => (<MazeRow cells={row} key={index} />))
+    const rows = maze.cells.map((row, index) => (<MazeRow cells={row} key={index} {...{ path } }/>))
     
     return (
       <table className='maze' onKeyPress={this.onKeyPress} tabIndex='0'>
