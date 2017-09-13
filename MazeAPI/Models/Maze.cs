@@ -28,7 +28,7 @@ namespace MazeAPI.Models {
         public static Maze Generate(int seed, int width, int height) {
             Maze maze = new Maze(width, height);
 
-            Debug.WriteLine($"#MazeAPI Using seed {seed}");
+            //Debug.WriteLine($"#MazeAPI Using seed {seed}");
             Random rand = new Random(seed);
 
             int row = 0;
@@ -43,7 +43,7 @@ namespace MazeAPI.Models {
 
             while (history.Count > 0) {
                 // Mark the current location as visited
-                Debug.WriteLine($"#MazeAPI Currently at [{row}, {col}]");
+                //Debug.WriteLine($"#MazeAPI Currently at [{row}, {col}]");
                 visited[row, col] = true;
 
                 List<String> validDirections = new List<String>();
@@ -61,7 +61,7 @@ namespace MazeAPI.Models {
                     validDirections.Add("Down");
                 }
 
-                Debug.WriteLine($"#MazeAPI Valid Directions at [{row}, {col}]: [{string.Join(",", validDirections.ToArray())}]");
+                //Debug.WriteLine($"#MazeAPI Valid Directions at [{row}, {col}]: [{string.Join(",", validDirections.ToArray())}]");
 
                 // If there are valid directions in which we can move
                 if (validDirections.Count > 0) {
@@ -71,7 +71,7 @@ namespace MazeAPI.Models {
                     int moveIndex = rand.Next(validDirections.Count);
                     string move = validDirections[moveIndex];
 
-                    Debug.WriteLine($"#MazeAPI Moving {move}");
+                    //Debug.WriteLine($"#MazeAPI Moving {move}");
 
                     switch (move) {
                     case "Left": {
@@ -104,7 +104,7 @@ namespace MazeAPI.Models {
                     var previous = history.Pop();
                     row = previous.Item1;
                     col = previous.Item2;
-                    Debug.WriteLine($"#MazeAPI Retracing steps to [{row}, {col}]");
+                    //Debug.WriteLine($"#MazeAPI Retracing steps to [{row}, {col}]");
                 }
             }
 
