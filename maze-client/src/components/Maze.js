@@ -47,30 +47,36 @@ export class Maze extends React.Component {
     const value = e.key
     const { maze, path, loaded } = this.state
 
-    if (loaded && ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(value)) {
+    if (loaded) {
+      if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(value)) {
 
-      const displayPath = path => path.map(x => `[${x.row}, ${x.col}]`).join(', ')
-      const current = path[path.length - 1]
+        const displayPath = path => path.map(x => `[${x.row}, ${x.col}]`).join(', ')
+        const current = path[path.length - 1]
 
-      const direction = value.substring(5).toLowerCase()
+        const direction = value.substring(5).toLowerCase()
 
-      if (Maze.isValidMove(maze, current, direction)) {
+        if (Maze.isValidMove(maze, current, direction)) {
 
-        const next = Maze.move(maze, current, direction)
-        const previous = path.length >= 2 ? path[path.length - 2] : {}
+          const next = Maze.move(maze, current, direction)
+          const previous = path.length >= 2 ? path[path.length - 2] : {}
 
-        let newPath
+          let newPath
 
-        // If the previous cell is the same as the "next", then we're retracing our steps and should shorten the path
-        if (previous.row === next.row && previous.col === next.col) {
-          newPath = path.slice(0, path.length - 1)
-        } else {
-          newPath = [...path, next]
+          // If the previous cell is the same as the "next", then we're retracing our steps and should shorten the path
+          if (previous.row === next.row && previous.col === next.col) {
+            newPath = path.slice(0, path.length - 1)
+          } else {
+            newPath = [...path, next]
+          }
+
+          this.setState({ path: newPath })
         }
-        
-        this.setState({ path: newPath })
-      } 
-      e.preventDefault()
+        e.preventDefault()
+      } else if (value === 'Backspace') {
+        this.setState({ path: path.slice(0, path.length - 1) })
+      } else {
+        console.log(value)
+      }
     }
 
   }
@@ -104,7 +110,6 @@ export class Maze extends React.Component {
 
   generateMaze = () => {
 
-    //const { width, height } = this.props
     const { maze, path } = this.state
 
     const rows = maze.cells.map((row, index) => (<MazeRow cells={row} key={index} {...{ path } }/>))
