@@ -49,36 +49,40 @@ export class Maze extends React.Component {
 
     if (loaded) {
       if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(value)) {
-
-        const displayPath = path => path.map(x => `[${x.row}, ${x.col}]`).join(', ')
-        const current = path[path.length - 1]
-
         const direction = value.substring(5).toLowerCase()
 
-        if (Maze.isValidMove(maze, current, direction)) {
-
-          const next = Maze.move(maze, current, direction)
-          const previous = path.length >= 2 ? path[path.length - 2] : {}
-
-          let newPath
-
-          // If the previous cell is the same as the "next", then we're retracing our steps and should shorten the path
-          if (previous.row === next.row && previous.col === next.col) {
-            newPath = path.slice(0, path.length - 1)
-          } else {
-            newPath = [...path, next]
-          }
-
-          this.setState({ path: newPath })
-        }
-        e.preventDefault()
+        this.handleInput(maze, path, direction)
       } else if (value === 'Backspace') {
-        this.setState({ path: path.slice(0, path.length - 1) })
-      } else {
-        console.log(value)
+        this.undo()
       }
     }
+  }
 
+  handleInput = (maze, path, direction) => {
+
+    const current = path[path.length - 1]
+
+    if (Maze.isValidMove(maze, current, direction)) {
+
+      const next = Maze.move(maze, current, direction)
+      const previous = path.length >= 2 ? path[path.length - 2] : false
+
+      let newPath
+
+      // If the previous cell is the same as the "next", then we're retracing our steps and should shorten the path
+      if (previous && previous.row === next.row && previous.col === next.col) {
+        newPath = path.slice(0, path.length - 1)
+      } else {
+        newPath = [...path, next]
+      }
+
+      this.setState({ path: newPath })
+    }
+  }
+
+  undo = () => {
+    const { path } = this.state
+    this.setState({ path: path.slice(0, path.length -1 ) })
   }
 
   static isValidMove(maze, current, direction) {
