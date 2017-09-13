@@ -19,6 +19,7 @@ export const MazeCell = ({ cell }) => {
     style.backgroundColor = '#CE3914'  
   } else if (cell.start) {
     style.backgroundColor = '#72DB75'
+    style.borderLeft = '#72DB75'
   }
 
   return (
