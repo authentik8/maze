@@ -15,6 +15,10 @@ export const MazeCell = ({ cell }) => {
     style.borderBottom = 'solid 2px black'
   }
 
+  if (cell.goal) {
+    style.backgroundColor = '#72db75'  
+  }
+
   return (
     <td {...{ style }} ></td>
   )
