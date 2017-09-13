@@ -58,6 +58,18 @@ export class Maze extends React.Component {
     }
   }
 
+  handleCellClick = (row, col) => {
+    const { maze, path } = this.state
+
+    const clickedCell = maze.cells[row][col]
+
+    const pathIndex = path.indexOf(clickedCell)
+
+    if (pathIndex !== -1) {
+      this.setState({ path: path.slice(0, pathIndex+1)})
+    }
+  }
+
   handleInput = (maze, path, direction) => {
 
     const current = path[path.length - 1]
@@ -116,7 +128,7 @@ export class Maze extends React.Component {
 
     const { maze, path } = this.state
 
-    const rows = maze.cells.map((row, index) => (<MazeRow cells={row} key={index} {...{ path } }/>))
+    const rows = maze.cells.map((row, index) => (<MazeRow cells={row} key={index} onClick={this.handleCellClick} {...{ path } }/>))
     
     return (
       <table className='maze' onKeyPress={this.onKeyPress} tabIndex='0'>

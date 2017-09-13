@@ -36,8 +36,13 @@ export class MazeCell extends React.Component {
       classes.push('onPath')
     }
 
+    const onClick = () => this.props.onClick(cell.row, cell.col)
+
     return (
-      <td className={`cell ${classes.join(' ')}`} {...{ style }} ></td>
+      <td
+        onClick={onClick}
+        className={`cell ${classes.join(' ')}`}
+        {...{ style }} />
     )
   }
 }
