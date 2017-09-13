@@ -3,7 +3,7 @@ import 'whatwg-fetch'
 
 const API_URL = 'http://localhost:49907/api'
 
-export class Maze extends React.Component {
+export class MazeRoute extends React.Component {
 
   constructor(props) {
     super(props)
@@ -53,4 +53,4 @@ export class Maze extends React.Component {
   }
 }
 
-export default Maze
+export default MazeRoute

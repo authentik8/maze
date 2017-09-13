@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom'
 import './App.css';
 
-import Home from './routes/Home'
-import Maze from './routes/Maze'
+import Home from './routes/HomeRoute'
+import Maze from './routes/MazeRoute'
 
 class App extends Component {
   render() {
