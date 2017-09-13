@@ -11,7 +11,7 @@ namespace MazeAPI.Controllers
     public class MazeController : Controller
     {
         // GET api/maze/<width>/<height>
-        [HttpGet("{width}x{height}?seed={seedStr}")]
+        [HttpGet("{width}x{height}")]
         public Maze Get(int width, int height, string seedStr)
         {
             int seed;
