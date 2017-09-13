@@ -2,9 +2,11 @@
 import 'whatwg-fetch'
 
 import MazeRow from './MazeRow'
+import ActionBar from './ActionBar'
 import './Maze.css'
 
 const API_URL = 'http://localhost:49907/api'
+const MOVEMENTS = ['left', 'up', 'right', 'down']
 
 export class Maze extends React.Component {
   constructor(props) {
@@ -67,6 +69,17 @@ export class Maze extends React.Component {
 
     if (pathIndex !== -1) {
       this.setState({ path: path.slice(0, pathIndex+1)})
+    }
+  }
+
+  handleAction = (action) => {
+
+    const { maze, path } = this.state
+
+    if (MOVEMENTS.includes(action)) {
+      this.handleInput(maze, path, action)
+    } else if (action === 'undo') {
+      this.undo()
     }
   }
 
@@ -153,6 +166,7 @@ export class Maze extends React.Component {
     return (
       <div>
         {content}
+        <ActionBar handleAction={this.handleAction}/>
       </div>
     )
   }
