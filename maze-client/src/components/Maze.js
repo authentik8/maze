@@ -32,9 +32,7 @@ export class Maze extends React.Component {
       })
       .then(maze => {
         const path = maze.cells.reduce((prev, next) => [...prev, ...next]).filter(cell => !!cell.start)
-
-        console.log(path)
-
+        
         this.setState({ maze, path, loaded: true, eventListenerMounted: true })
       })
   }
@@ -50,17 +48,28 @@ export class Maze extends React.Component {
     const { maze, path, loaded } = this.state
 
     if (loaded && ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(value)) {
+
+      const displayPath = path => path.map(x => `[${x.row}, ${x.col}]`).join(', ')
       const current = path[path.length - 1]
 
-      const direction = value.substring(5)
+      const direction = value.substring(5).toLowerCase()
 
-      // Check if invalid move
       if (Maze.isValidMove(maze, current, direction)) {
-        console.log('Can move!')
-      } else {
-        console.log('Can\'t move!')
-      }
 
+        const next = Maze.move(maze, current, direction)
+        const previous = path.length >= 2 ? path[path.length - 2] : {}
+
+        let newPath
+
+        // If the previous cell is the same as the "next", then we're retracing our steps and should shorten the path
+        if (previous.row === next.row && previous.col === next.col) {
+          newPath = path.slice(0, path.length - 1)
+        } else {
+          newPath = [...path, next]
+        }
+        
+        this.setState({ path: newPath })
+      } 
       e.preventDefault()
     }
 
@@ -68,18 +77,29 @@ export class Maze extends React.Component {
 
   static isValidMove(maze, current, direction) {
 
-    
-    
     if ( // If on the boundaries, can't move outside the maze
-      (current.row === 0 && direction === 'Up') ||
-      (current.col === 0 && direction === 'Left') ||
-      (current.row === maze.rows - 1 && direction === 'Down') ||
-      (current.col === maze.columns - 1 && direction === 'Right')
+      (current.row === 0 && direction === 'up') ||
+      (current.col === 0 && direction === 'left') ||
+      (current.row === maze.rows - 1 && direction === 'down') ||
+      (current.col === maze.columns - 1 && direction === 'right')
     ) {
       return false;
     } else {
-      return true
+      // `up`, `left`, `down` & `right` values on `Cell` objects indicate whether moves in that direction are valid
+      return current[direction]
     }
+  }
+
+  static move(maze, current, direction) {
+    const movementMap = {
+      left: (row, col) => ({ row, col: col - 1 }),
+      up: (row, col) => ({ row: row - 1, col }),
+      right: (row, col) => ({ row, col: col + 1 }),
+      down: (row, col) => ({ row: row + 1, col })
+    }
+
+    const { row, col } = movementMap[direction](current.row, current.col)
+    return maze.cells[row][col]
   }
 
   generateMaze = () => {
@@ -88,7 +108,7 @@ export class Maze extends React.Component {
     const { maze, path } = this.state
 
     const rows = maze.cells.map((row, index) => (<MazeRow cells={row} key={index} />))
-
+    
     return (
       <table className='maze' onKeyPress={this.onKeyPress} tabIndex='0'>
         <tbody>
