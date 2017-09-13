@@ -166,7 +166,12 @@ export class Maze extends React.Component {
     return (
       <div>
         {content}
-        <ActionBar handleAction={this.handleAction}/>
+        <ActionBar handleAction={this.handleAction} />
+        <p className='text-center'>
+          <small>
+            N.B. You can also use the arrow keys to navigate the maze & Backspace to undo!
+          </small>
+        </p>
       </div>
     )
   }
