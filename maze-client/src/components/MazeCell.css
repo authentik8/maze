@@ -9,4 +9,9 @@
 
 .cell.onPath {
     background-color: #a0c4ff;
+    cursor: pointer;
+}
+
+.cell.onPath:hover {
+    background-color: #508bed;
 }

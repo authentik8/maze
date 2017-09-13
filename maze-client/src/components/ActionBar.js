@@ -25,7 +25,7 @@ export const ActionBar = ({ handleAction }) => {
   })
 
   return (
-    <div className='row'>
+    <div className='row mb-4'>
       { buttons }
     </div>
   )
