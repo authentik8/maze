@@ -31,12 +31,8 @@ namespace MazeAPI.Models {
             //Debug.WriteLine($"#MazeAPI Using seed {seed}");
             Random rand = new Random(seed);
 
-            int row = width / 2;
-            int col = height / 2;
-
-            // Mark the center of the maze as the goal cell
-            MazeCell origin = maze.Cells[row, col];
-            origin.MakeGoal();
+            int row = 0;
+            int col = 0;
 
             bool[,] visited = new Boolean[width, height];
 
@@ -51,7 +47,6 @@ namespace MazeAPI.Models {
                 visited[row, col] = true;
 
                 List<String> validDirections = new List<String>();
-
 
                 if (col > 0 && !visited[row, col - 1]) {
                     validDirections.Add("Left");
@@ -115,8 +110,11 @@ namespace MazeAPI.Models {
 
             // Open up the top-left cell as the starting point
             MazeCell start = maze.cells[0, 0];
-            start.OpenLeft();
+            start.OpenUp();
             start.MakeStart();
+
+            maze.Cells[width - 1, height - 1].MakeGoal();
+            start.OpenDown();
 
             return maze;
         }
