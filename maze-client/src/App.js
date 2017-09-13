@@ -19,7 +19,7 @@ class App extends Component {
           </div>
           <div className="App-content container">
             <Route exact path="/" component={Home} />
-            <Route path="/:width/:height" component={Maze} />
+            <Route path="/maze/:width/:height" component={Maze} />
           </div>
         </div>
       </Router>
