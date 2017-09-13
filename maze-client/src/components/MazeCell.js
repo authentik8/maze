@@ -1,5 +1,7 @@
 ﻿import React from 'react'
 
+import './MazeCell.css'
+
 export class MazeCell extends React.Component {
 
   onPath = () => {
@@ -24,17 +26,18 @@ export class MazeCell extends React.Component {
       style.borderBottom = 'solid 2px black'
     }
 
+    const classes = []
+
     if (cell.goal) {
-      style.backgroundColor = '#e07264'
+      classes.push('goal')
     } else if (cell.start) {
-      style.backgroundColor = '#72DB75'
-      style.borderLeft = '#72DB75'
+      classes.push('start')
     } else if (this.onPath()) {
-      style.backgroundColor = '#a0c4ff'
+      classes.push('onPath')
     }
 
     return (
-      <td {...{ style }} ></td>
+      <td className={`cell ${classes.join(' ')}`} {...{ style }} ></td>
     )
   }
 }

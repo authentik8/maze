@@ -1,0 +1,12 @@
+﻿.cell.goal {
+    background-color: #e07264;
+}
+
+.cell.start {
+    border-left: 2px solid #72db75;
+    background-color: #72db75;
+}
+
+.cell.onPath {
+    background-color: #a0c4ff;
+}
