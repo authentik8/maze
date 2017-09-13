@@ -29,6 +29,9 @@ namespace MazeAPI
         {
             // Add framework services.
             services.AddMvc();
+
+            // Add CORS support
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +39,10 @@ namespace MazeAPI
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseCors(
+                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod().AllowCredentials()
+            );
 
             app.UseMvc();
         }
