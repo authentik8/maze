@@ -41,7 +41,7 @@ namespace MazeAPI
             loggerFactory.AddDebug();
 
             app.UseCors(
-                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod().AllowCredentials()
+                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()
             );
 
             app.UseMvc();
