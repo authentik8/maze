@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -24,6 +25,29 @@ namespace MazeLib   {
                 }
             }
         }
+
+        [JsonConstructor]
+        public Maze(int width, int height, List<List<MazeCell>> cells) {
+            this.width = width;
+            this.height = height;
+
+            int matHeight = cells.Count;
+            int matWidth = cells[0].Count;
+
+            if (!cells.TrueForAll(columns => columns.Count == matWidth)) {
+                throw new ArgumentException($"Inconsistent column widths - expected {width}");
+            } else if (width != matWidth || height != matHeight) {
+                throw new ArgumentException($"Expected a cell matrix of {width}x{height}, got {matWidth}x{matHeight}");
+            }
+
+            this.cells = new MazeCell[width, height];
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    this.cells[row, col] = cells[row][col];
+                }
+            }
+        }
+
 
         public static Maze Generate(int seed, int width, int height) {
             Maze maze = new Maze(width, height);
