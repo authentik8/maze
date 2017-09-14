@@ -5,7 +5,7 @@ import MazeRow from './MazeRow'
 import ActionBar from './ActionBar'
 import './Maze.css'
 
-const API_URL = 'http://localhost:49907/api'
+const MAZE_API_URL = 'http://localhost:49907/api'
 const MOVEMENTS = ['left', 'up', 'right', 'down']
 
 export class Maze extends React.Component {
@@ -14,16 +14,20 @@ export class Maze extends React.Component {
     this.state = {
       loaded: false,
       maze: {},
-      path: []
+      path: [],
+      error: false,
+      eventListenerMounted: false,
+      solution: null
     }
   }
 
   componentDidMount() {
 
     window.addEventListener('keydown', this.handleKeyPress)
+    this.setState({ eventListenerMounted: true })
 
     const { size } = this.props
-    fetch(`${API_URL}/maze/${size}`)
+    fetch(`${MAZE_API_URL}/maze/${size}`)
       .then(res => {
         if (res.status !== 200) {
           console.error('Error while retrieving maze from API')
@@ -33,9 +37,11 @@ export class Maze extends React.Component {
         }
       })
       .then(maze => {
-        const path = maze.cells.reduce((prev, next) => [...prev, ...next]).filter(cell => !!cell.start)
+        const path = maze.cells.reduce((prev, next) => [...prev, ...next])
+          .filter(cell => !!cell.start)
+          .map(obj => ({ row: obj.row, col: obj.col }))
         
-        this.setState({ maze, path, loaded: true, eventListenerMounted: true })
+        this.setState({ maze, path, loaded: true, solution: null })
       })
   }
 
@@ -87,8 +93,9 @@ export class Maze extends React.Component {
 
   handleInput = (maze, path, direction) => {
 
-    const current = path[path.length - 1]
-
+    const loc = path[path.length - 1]
+    const current = maze.cells[loc.row][loc.col]
+    
     if (Maze.isValidMove(maze, current, direction)) {
 
       const next = Maze.move(maze, current, direction)
@@ -135,8 +142,7 @@ export class Maze extends React.Component {
       down: (row, col) => ({ row: row + 1, col })
     }
 
-    const { row, col } = movementMap[direction](current.row, current.col)
-    return maze.cells[row][col]
+    return movementMap[direction](current.row, current.col)
   }
 
   generateMaze = () => {

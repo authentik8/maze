@@ -10,7 +10,7 @@ export class MazeCell extends React.Component {
   }
 
   render() {
-    const { cell, path } = this.props
+    const { cell } = this.props
     const style = {}
 
     if (!cell.left) {
