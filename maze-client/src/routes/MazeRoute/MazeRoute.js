@@ -10,7 +10,7 @@ export class MazeRoute extends React.Component {
     const { match: { params: {size } } } = this.props
 
     return (
-      <div className='card'>
+      <div className='card mb-4'>
         <div className='card-header'>
           <h4 className='card-title mb-0 text-center'>{size} x {size}</h4>
         </div>

@@ -2,23 +2,22 @@
 
 export const ActionBar = ({ handleAction }) => {
 
-  const defaultClasses = 'col-12 col-md-3 col-lg-2'
+  const defaultClasses = 'col-12 col-md-3 col-lg-2 mb-3 mb-lg-0'
 
   const buttonConfigs = [
-    { text: 'Left' },
-    { text: 'Right' },
-    { text: 'Up' },
-    { text: 'Down' },
-    { text: 'Undo', classes: 'col-12 col-md-6 col-lg-2' },
-    { text: 'Solve', classes: 'col-12 col-md-6 col-lg-2'}
+    { name: 'left', text: 'Left', classes: defaultClasses },
+    { name: 'right', text: 'Right', classes: defaultClasses },
+    { name: 'up', text: 'Up', classes: defaultClasses },
+    { name: 'down', text: 'Down', classes: defaultClasses },
+    { name: 'undo', text: 'Undo', classes: 'col-12 col-md-6 col-lg-2 mb-3 mb-lg-0' },
+    { name: 'solve', text: 'Solve', classes: 'col-12 col-md-6 col-lg-2 mb-lg-0'}
   ]
 
   const buttons = buttonConfigs.map(config => {
-    const name = config.name ? config.name : config.text.toLowerCase()
-    const onClick = () => handleAction(name)
+    const onClick = () => handleAction(config.name)
 
     return (
-      <div key={name} className={config.classes ? config.classes : defaultClasses}>
+      <div key={config.name} className={config.classes}>
         <button className='form-control' {...{ onClick }}>{config.text}</button>
       </div>
     )

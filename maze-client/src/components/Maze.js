@@ -54,8 +54,10 @@ export class Maze extends React.Component {
         const direction = value.substring(5).toLowerCase()
 
         this.handleInput(maze, path, direction)
+        e.preventDefault()
       } else if (value === 'Backspace') {
         this.undo()
+        e.preventDefault()
       }
     }
   }
