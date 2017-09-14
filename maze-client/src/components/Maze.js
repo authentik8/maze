@@ -6,6 +6,7 @@ import ActionBar from './ActionBar'
 import './Maze.css'
 
 const MAZE_API_URL = 'http://localhost:49907/api'
+const MAZE_SOLVER_URL = 'http://localhost:52059/api/solver'
 const MOVEMENTS = ['left', 'up', 'right', 'down']
 
 export class Maze extends React.Component {
@@ -51,6 +52,27 @@ export class Maze extends React.Component {
     }
   }
 
+  getSolution() {
+    const { maze, path } = this.state
+    const payload = Object.assign({}, { maze, path })
+
+    fetch(MAZE_SOLVER_URL, {
+      method: 'post',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(payload)
+    }).then(res => {
+      if (res.status !== 200) {
+        console.error('Error while retrieving solution')
+      } else {
+        return res.json()
+      }
+    }).then(path => console.log(path))
+
+
+  }
+
   handleKeyPress = e => {
     const value = e.key
     const { maze, path, loaded } = this.state
@@ -88,13 +110,15 @@ export class Maze extends React.Component {
       this.handleInput(maze, path, action)
     } else if (action === 'undo') {
       this.undo()
+    } else if (action === 'solve') {
+      this.getSolution()
     }
   }
 
   handleInput = (maze, path, direction) => {
 
-    const loc = path[path.length - 1]
-    const current = maze.cells[loc.row][loc.col]
+    const currentLocation = path[path.length - 1]
+    const current = maze.cells[currentLocation.row][currentLocation.col]
     
     if (Maze.isValidMove(maze, current, direction)) {
 
