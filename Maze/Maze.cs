@@ -60,10 +60,10 @@ namespace MazeLib   {
 
             bool[,] visited = new Boolean[width, height];
 
-            Stack<Tuple<int, int>> history = new Stack<Tuple<int, int>>();
+            Stack<Coordinates> history = new Stack<Coordinates>();
 
             // The stack stores visited cells - start with 0, 0
-            history.Push(new Tuple<int, int>(0, 0));
+            history.Push(new Coordinates(row, col));
 
             while (history.Count > 0) {
                 // Mark the current location as visited
@@ -89,7 +89,7 @@ namespace MazeLib   {
 
                 // If there are valid directions in which we can move
                 if (validDirections.Count > 0) {
-                    history.Push(new Tuple<int, int>(row, col));
+                    history.Push(new Coordinates(row, col));
 
                     // Randomly select a movement direction from the valid list
                     int moveIndex = rand.Next(validDirections.Count);
@@ -125,9 +125,9 @@ namespace MazeLib   {
                     }
                 } else {
                     // No valid moves, move back one step in history
-                    var previous = history.Pop();
-                    row = previous.Item1;
-                    col = previous.Item2;
+                    Coordinates previous = history.Pop();
+                    row = previous.Row;
+                    col = previous.Col;
                     //Debug.WriteLine($"#MazeAPI Retracing steps to [{row}, {col}]");
                 }
             }
@@ -144,13 +144,25 @@ namespace MazeLib   {
         }
     }
 
+    public struct Coordinates {
+        public int Row;
+        public int Col;
+
+        public Coordinates (int row, int col) {
+            this.Row = row;
+            this.Col = col;
+        }
+    }
+
     public class MazeCell {
 
         public bool start { get; private set; }
         public bool goal { get; private set; }
 
-        public int row { get; private set; }
-        public int col { get; private set; }
+        private Coordinates coordinates;
+
+        public int row { get => coordinates.Row; private set => coordinates.Row = value; }
+        public int col { get => coordinates.Col; private set => coordinates.Col = value; }
 
         // A true value for any of these represents a valid movement direction from this cell
         public bool up { get; private set; }
@@ -160,8 +172,7 @@ namespace MazeLib   {
 
         public MazeCell(int row,
                         int col) {
-            this.row = row;
-            this.col = col;
+            this.coordinates = new Coordinates(row, col);
         }
 
         public void MakeStart() {
