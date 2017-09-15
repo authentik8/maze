@@ -13,6 +13,10 @@ namespace MazeLib
             this.Col = col;
         }
 
+        public override string ToString() {
+            return $"MazeLib.Coordinates({Row}, {Col})";
+        }
+
         public override bool Equals(object obj) {
             if (!(obj is Coordinates))
                 return false;
