@@ -27,6 +27,16 @@ export class Maze extends React.Component {
     window.addEventListener('keydown', this.handleKeyPress)
     this.setState({ eventListenerMounted: true })
 
+    this.getMaze()
+  }
+
+  componentWillUnmount() {
+    if (this.state.eventListenerMounted) {
+      window.removeEventListener('keydown', this.handleKeyPress)
+    }
+  }
+
+  getMaze() {
     const { size } = this.props
     fetch(`${MAZE_API_URL}/maze/${size}`)
       .then(res => {
@@ -41,12 +51,6 @@ export class Maze extends React.Component {
         const path = [{ row: 0, col: 0 }]
         this.setState({ maze, path, loaded: true, solution: null })
       })
-  }
-
-  componentWillUnmount() {
-    if (this.state.eventListenerMounted) {
-      window.removeEventListener('keydown', this.handleKeyPress)
-    }
   }
 
   getSolution() {
