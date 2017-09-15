@@ -6,6 +6,17 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace MazeLib   {
+
+    struct Move {
+        public Coordinates coordinates;
+        public string direction;
+
+        public Move(Coordinates coordinates, string direction) {
+            this.coordinates = coordinates;
+            this.direction = direction;
+        }
+    }
+
     public class Maze {
         private int width;
         private int height;
@@ -56,6 +67,24 @@ namespace MazeLib   {
             int seed = new Random().Next();
             return Generate(width, height, seed);
         }
+        
+        private List<Move> GetPossibleMoves(Coordinates current, Boolean[,] visited) {
+
+            Move[] moves = new Move[4] {
+                new Move(new Coordinates(current.Row, current.Col - 1), "left"),
+                new Move(new Coordinates(current.Row - 1, current.Col), "up"),
+                new Move(new Coordinates(current.Row, current.Col + 1), "right"),
+                new Move(new Coordinates(current.Row + 1, current.Col), "down")
+            };
+
+            return moves
+                .Where(move => move.coordinates.Row >= 0 && 
+                               move.coordinates.Col >= 0 && 
+                               move.coordinates.Row < height && 
+                               move.coordinates.Col < width &&
+                               !visited[move.coordinates.Row, move.coordinates.Col])
+                .ToList();
+        }
 
         public static Maze Generate(int width, int height, int seed) {
             Maze maze = new Maze(width, height);
@@ -77,57 +106,42 @@ namespace MazeLib   {
                 //Debug.WriteLine($"#MazeAPI Currently at [{row}, {col}]");
                 visited[current.Row, current.Col] = true;
 
-                List<String> validDirections = new List<String>();
+                List<Move> possibleMoves = maze.GetPossibleMoves(current, visited);
 
-                if (current.Col > 0 && !visited[current.Row, current.Col - 1]) {
-                    validDirections.Add("Left");
-                }
-                if (current.Row > 0 && !visited[current.Row - 1, current.Col]) {
-                    validDirections.Add("Up");
-                }
-                if (current.Col < width - 1 && !visited[current.Row, current.Col + 1]) {
-                    validDirections.Add("Right");
-                }
-                if (current.Row < height - 1 && !visited[current.Row + 1, current.Col]) {
-                    validDirections.Add("Down");
-                }
-                
                 // If there are valid directions in which we can move
-                if (validDirections.Count > 0) {
+                if (possibleMoves.Count > 0) {
                     history.Push(current);
 
                     // Randomly select a movement direction from the valid list
-                    int moveIndex = rand.Next(validDirections.Count);
-                    string move = validDirections[moveIndex];
+                    int moveIndex = rand.Next(possibleMoves.Count);
+                    Move next = possibleMoves[moveIndex];
 
                     //Debug.WriteLine($"#MazeAPI Moving {move}");
 
-                    switch (move) {
-                    case "Left": {
+                    switch (next.direction) {
+                    case "left": {
                             maze.At(current).OpenLeft();
-                            current = new Coordinates(current.Row, current.Col - 1);
-                            maze.At(current).OpenRight();
+                            maze.At(next.coordinates).OpenRight();
                             break;
                         }
-                    case "Up": {
+                    case "up": {
                             maze.At(current).OpenUp();
-                            current = new Coordinates(current.Row - 1, current.Col);
-                            maze.At(current).OpenDown();
+                            maze.At(next.coordinates).OpenDown();
                             break;
                         }
-                    case "Right": {
+                    case "right": {
                             maze.At(current).OpenRight();
-                            current = new Coordinates(current.Row, current.Col + 1);
-                            maze.At(current).OpenLeft();
+                            maze.At(next.coordinates).OpenLeft();
                             break;
                         }
-                    case "Down": {
+                    case "down": {
                             maze.At(current).OpenDown();
-                            current = new Coordinates(current.Row + 1, current.Col);
-                            maze.At(current).OpenUp();
+                            maze.At(next.coordinates).OpenUp();
                             break;
                         }
                     }
+
+                    current = next.coordinates;
                 } else {
                     // No valid moves, move back one step in history
                     current = history.Pop();
