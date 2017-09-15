@@ -78,11 +78,11 @@ namespace MazeLib   {
             };
 
             return moves
-                .Where(move => move.coordinates.Row >= 0 && 
+                .Where(move => move.coordinates.Row >= 0 &&  // Check inside the bounds of the maze
                                move.coordinates.Col >= 0 && 
                                move.coordinates.Row < height && 
                                move.coordinates.Col < width &&
-                               !visited[move.coordinates.Row, move.coordinates.Col])
+                               !visited[move.coordinates.Row, move.coordinates.Col])  // And that we haven't already visited
                 .ToList();
         }
 
