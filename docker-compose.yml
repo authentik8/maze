@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mazeapi:
+    image: mazeapi
+    build:
+      context: ./MazeAPI
+      dockerfile: Dockerfile
+
+  mazesolverapi:
+    image: mazesolverapi
+    build:
+      context: ./MazeSolverAPI
+      dockerfile: Dockerfile

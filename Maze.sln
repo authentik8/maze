@@ -36,7 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeSolverAPI", "MazeSolver
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeLib", "Maze\MazeLib.csproj", "{02FA2F1F-121C-4FC6-99CC-3957A53B417D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeLibTests", "MazeLibTests\MazeLibTests.csproj", "{63D77F86-FAE6-4966-B232-1743FDE257C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeLibTests", "MazeLibTests\MazeLibTests.csproj", "{63D77F86-FAE6-4966-B232-1743FDE257C5}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A443C170-19BB-4367-AC0F-5BBFEF3D2502}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,10 @@ Global
 		{63D77F86-FAE6-4966-B232-1743FDE257C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63D77F86-FAE6-4966-B232-1743FDE257C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63D77F86-FAE6-4966-B232-1743FDE257C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A443C170-19BB-4367-AC0F-5BBFEF3D2502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A443C170-19BB-4367-AC0F-5BBFEF3D2502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A443C170-19BB-4367-AC0F-5BBFEF3D2502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A443C170-19BB-4367-AC0F-5BBFEF3D2502}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
