@@ -103,7 +103,6 @@ namespace MazeLib   {
 
             while (history.Count > 0) {
                 // Mark the current location as visited
-                //Debug.WriteLine($"#MazeAPI Currently at [{row}, {col}]");
                 visited[current.Row, current.Col] = true;
 
                 List<Move> possibleMoves = maze.GetPossibleMoves(current, visited);
@@ -115,9 +114,7 @@ namespace MazeLib   {
                     // Randomly select a movement direction from the valid list
                     int moveIndex = rand.Next(possibleMoves.Count);
                     Move next = possibleMoves[moveIndex];
-
-                    //Debug.WriteLine($"#MazeAPI Moving {move}");
-
+                    
                     switch (next.direction) {
                     case "left": {
                             maze.At(current).OpenLeft();
