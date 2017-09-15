@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MazeLibTests": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\dotnet\\dotnet.exe",
+      "commandLineArgs": "test",
+      "workingDirectory": "C:\\Users\\Jonathan\\Documents\\Development\\maze\\Maze\\MazeLibTests"
+    }
+  }
+}
