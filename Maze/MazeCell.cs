@@ -29,7 +29,7 @@ namespace MazeLib
 
         [JsonConstructor]
         public MazeCell(int row, int col, bool start, bool goal, bool up, bool right, bool down, bool left) {
-            this.coordinates = new Coordinates(row, col);
+            coordinates = new Coordinates(row, col);
             this.start = start;
             this.goal = goal;
             this.up = up;
