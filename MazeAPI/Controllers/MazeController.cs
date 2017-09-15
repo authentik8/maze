@@ -21,7 +21,7 @@ namespace MazeAPI.Controllers
                 seed = new Random().Next();
             }
 
-            Maze maze = Maze.Generate(seed, size, size);
+            Maze maze = Maze.Generate(size, size, seed);
             return maze;
         }
     }
