@@ -63,6 +63,7 @@ namespace MazeLib   {
             Random rand = new Random(seed);
 
             Coordinates current = new Coordinates(0, 0);
+            maze.At(current).MakeStart();
 
             bool[,] visited = new Boolean[width, height];
 
@@ -133,14 +134,9 @@ namespace MazeLib   {
                 }
             }
 
-            // Open up the top-left cell as the starting point
-            MazeCell start = maze.cells[0, 0];
-            start.OpenUp();
-            start.MakeStart();
-
+            // Mark the bottom-right cell as the goal
             maze.Cells[width - 1, height - 1].MakeGoal();
-            start.OpenDown();
-
+            
             return maze;
         }
     }
