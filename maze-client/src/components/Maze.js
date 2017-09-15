@@ -38,10 +38,7 @@ export class Maze extends React.Component {
         }
       })
       .then(maze => {
-        const path = maze.cells.reduce((prev, next) => [...prev, ...next])
-          .filter(cell => !!cell.start)
-          .map(obj => ({ row: obj.row, col: obj.col }))
-        
+        const path = [{ row: 0, col: 0 }]
         this.setState({ maze, path, loaded: true, solution: null })
       })
   }
@@ -68,7 +65,9 @@ export class Maze extends React.Component {
       } else {
         return res.json()
       }
-    }).then(path => console.log(path))
+      }).then(solution => {
+        this.setState({ solution })
+      })
 
 
   }
@@ -171,9 +170,9 @@ export class Maze extends React.Component {
 
   generateMaze = () => {
 
-    const { maze, path } = this.state
+    const { maze, path, solution } = this.state
 
-    const rows = maze.cells.map((row, index) => (<MazeRow cells={row} key={index} onClick={this.handleCellClick} {...{ path } }/>))
+    const rows = maze.cells.map((row, index) => (<MazeRow cells={row} key={index} onClick={this.handleCellClick} {...{ path, solution } }/>))
     
     return (
       <table className='maze' onKeyPress={this.onKeyPress} tabIndex='0'>

@@ -4,6 +4,10 @@
 
 .cell.start {
     border-left: 2px solid #72db75;
+}
+
+.cell.start, 
+.cell.onSolution {
     background-color: #72db75;
 }
 

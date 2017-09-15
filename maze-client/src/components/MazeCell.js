@@ -4,13 +4,13 @@ import './MazeCell.css'
 
 export class MazeCell extends React.Component {
 
-  onPath = () => {
-    const { cell, path } = this.props
+  onPath = path => {
+    const { cell } = this.props
     return path.find(value => value.row === cell.row && value.col === cell.col) !== undefined
   }
 
   render() {
-    const { cell } = this.props
+    const { cell, path, solution } = this.props
     const style = {}
 
     if (!cell.left) {
@@ -32,8 +32,10 @@ export class MazeCell extends React.Component {
       classes.push('goal')
     } else if (cell.start) {
       classes.push('start')
-    } else if (this.onPath()) {
+    } else if (this.onPath(path)) {
       classes.push('onPath')
+    } else if (solution && this.onPath(solution)) {
+      classes.push('onSolution')
     }
 
     const onClick = () => this.props.onClick(cell.row, cell.col)
