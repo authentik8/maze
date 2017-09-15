@@ -4,6 +4,16 @@ import './MazeCell.css'
 
 export class MazeCell extends React.Component {
 
+  shouldComponentUpdate = nextProps => {
+
+    if (nextProps.path && Math.abs(nextProps.path.length - this.props.path.length) === 1) {
+      const lastPathCell = nextProps.path[nextProps.path.length - 1]
+      return lastPathCell.row === this.props.cell.row && lastPathCell.col === this.props.cell.col
+    }
+
+    return true
+  }
+
   onPath = path => {
     const { cell } = this.props
     return path.find(value => value.row === cell.row && value.col === cell.col) !== undefined

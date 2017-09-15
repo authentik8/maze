@@ -69,9 +69,9 @@ export class Maze extends React.Component {
       } else {
         return res.json()
       }
-      }).then(solution => {
-        this.setState({ solution })
-      })
+    }).then(solution => {
+      this.setState({ solution })
+    })
 
 
   }
@@ -101,7 +101,7 @@ export class Maze extends React.Component {
     const pathIndex = path.indexOf(clickedCell)
 
     if (pathIndex !== -1) {
-      this.setState({ path: path.slice(0, pathIndex+1)})
+      this.setState({ path: path.slice(0, pathIndex + 1) })
     }
   }
 
@@ -122,7 +122,7 @@ export class Maze extends React.Component {
 
     const currentLocation = path[path.length - 1]
     const current = maze.cells[currentLocation.row][currentLocation.col]
-    
+
     if (Maze.isValidMove(maze, current, direction)) {
 
       const next = Maze.move(maze, current, direction)
@@ -143,7 +143,7 @@ export class Maze extends React.Component {
 
   undo = () => {
     const { path } = this.state
-    this.setState({ path: path.slice(0, path.length -1 ) })
+    this.setState({ path: path.slice(0, path.length - 1) })
   }
 
   static isValidMove(maze, current, direction) {
@@ -176,8 +176,13 @@ export class Maze extends React.Component {
 
     const { maze, path, solution } = this.state
 
-    const rows = maze.cells.map((row, index) => (<MazeRow cells={row} key={index} onClick={this.handleCellClick} {...{ path, solution } }/>))
-    
+    const pathByRows = maze.cells.map((row, index) => [...path.filter(coord => coord.row == index)])
+
+    const rows = maze.cells.map((row, index) => {
+      const rowCellsOnPath = pathByRows[index]
+      return (<MazeRow cells={row} key={index} onClick={this.handleCellClick} path={rowCellsOnPath} {...{ solution } } />)
+    })
+
     return (
       <table className='maze' onKeyPress={this.onKeyPress} tabIndex='0'>
         <tbody>
@@ -197,7 +202,7 @@ export class Maze extends React.Component {
     } else {
       content = this.generateMaze()
     }
-    
+
     return (
       <div>
         {content}
