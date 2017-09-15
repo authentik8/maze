@@ -1,9 +1,5 @@
-﻿using System;
-using Xunit;
-using MazeLib;
-using Newtonsoft.Json;
+﻿using Xunit;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 
 namespace MazeLib.Tests
 {

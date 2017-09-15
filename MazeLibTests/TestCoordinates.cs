@@ -1,6 +1,4 @@
-﻿using System;
-using Xunit;
-using MazeLib;
+﻿using Xunit;
 
 namespace MazeLib.Tests {
     
