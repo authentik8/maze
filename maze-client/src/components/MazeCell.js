@@ -6,9 +6,21 @@ export class MazeCell extends React.Component {
 
   shouldComponentUpdate = nextProps => {
 
-    if (nextProps.path && Math.abs(nextProps.path.length - this.props.path.length) === 1) {
-      const lastPathCell = nextProps.path[nextProps.path.length - 1]
-      return lastPathCell.row === this.props.cell.row && lastPathCell.col === this.props.cell.col
+    const endOfPath = props => {
+      const lastCell = props.path[props.path.length - 1]
+      return !!lastCell ? props.cell.row === lastCell.row && props.cell.col === lastCell.col : true
+    }
+
+    if (this.props.path.length !== nextProps.path.length) {
+
+      const thisCellEndOfPath = endOfPath(this.props);
+      const nextCellEndOfPath = endOfPath(nextProps);
+
+      if (nextProps.path.length > this.props.path.length) {
+        return nextCellEndOfPath
+      } else {
+        return thisCellEndOfPath
+      }
     }
 
     return true

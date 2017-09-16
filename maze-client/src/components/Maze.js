@@ -176,7 +176,7 @@ export class Maze extends React.Component {
 
     const { maze, path, solution } = this.state
 
-    const pathByRows = maze.cells.map((row, index) => [...path.filter(coord => coord.row == index)])
+    const pathByRows = maze.cells.map((row, index) => path.filter(coord => coord.row === index))
 
     const rows = maze.cells.map((row, index) => {
       const rowCellsOnPath = pathByRows[index]
