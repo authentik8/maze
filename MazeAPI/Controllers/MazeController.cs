@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MazeLib;
+using System.Diagnostics;
 
 namespace MazeAPI.Controllers
 {
@@ -12,16 +13,19 @@ namespace MazeAPI.Controllers
     {
         // GET api/maze/<size>
         [HttpGet("{size}")]
-        public Maze Get(int size, string seedStr)
+        public Maze Get(int size, [FromQuery]string seed)
         {
-            int seed;
-            if (seedStr != null) {
-                int.TryParse(seedStr, out seed);
+            int parsedSeed;
+
+            Debug.WriteLine($"Seed: {seed}");
+
+            if (seed != null) {
+                int.TryParse(seed, out parsedSeed);
             } else {
-                seed = new Random().Next();
+                parsedSeed = new Random().Next();
             }
 
-            Maze maze = Maze.Generate(size, size, seed);
+            Maze maze = Maze.Generate(size, size, parsedSeed);
             return maze;
         }
     }
