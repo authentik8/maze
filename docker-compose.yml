@@ -25,7 +25,7 @@ services:
   mazeclient:
     image: mazeclient
     build:
-      context: ./mazeclient
+      context: ./maze-client
       dockerfile: Dockerfile
     networks:
       - overlay
