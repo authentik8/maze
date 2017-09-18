@@ -6,15 +6,33 @@ services:
     build:
       context: ./MazeAPI
       dockerfile: Dockerfile
+    networks:
+      - overlay
+    ports:
+      - 49907:80
 
   mazesolverapi:
     image: mazesolverapi
     build:
       context: ./MazeSolverAPI
       dockerfile: Dockerfile
+    networks:
+      - overlay
+    ports:
+      - 52059:80
+
 
   mazeclient:
     image: mazeclient
     build:
       context: ./mazeclient
       dockerfile: Dockerfile
+    networks:
+      - overlay
+    ports:
+      - 80:80
+    
+
+
+networks:
+  overlay:
