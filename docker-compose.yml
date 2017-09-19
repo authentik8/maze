@@ -3,36 +3,25 @@ version: '3'
 services:
   mazeapi:
     image: mazeapi
-    build:
-      context: ./MazeAPI
-      dockerfile: Dockerfile
     networks:
       - overlay
     ports:
-      - 49907:80
+      - "49907:80"
 
   mazesolverapi:
     image: mazesolverapi
-    build:
-      context: ./MazeSolverAPI
-      dockerfile: Dockerfile
     networks:
       - overlay
     ports:
-      - 52059:80
+      - "52059:80"
 
 
   mazeclient:
     image: mazeclient
-    build:
-      context: ./maze-client
-      dockerfile: Dockerfile
     networks:
       - overlay
     ports:
-      - 80:80
+      - "80:80"
     
-
-
 networks:
   overlay:
