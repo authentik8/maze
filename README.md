@@ -10,5 +10,7 @@ The following commands should set up a running instance of the system, accessibl
 - `docker build -t mazeapi .`
 - `cd ../MazeSolverAPI`
 - `docker build -t mazesolverapi .`
+- `cd ../maze-client`
+- `docker build -t mazeclient .`
 - `cd ..`
 - `docker stack deploy -c docker-compose.yml maze`
