@@ -1,6 +1,8 @@
-FROM microsoft/aspnetcore:2.0
-ARG source
-WORKDIR /app
-EXPOSE 80
+FROM microsoft/dotnet:2.0.0-runtime-jessie
 COPY . /app
+WORKDIR /app/bin/Release/PublishOutput
+
+EXPOSE 80
+ENV ASPNETCORE_URLS http://*:80
+
 ENTRYPOINT ["dotnet", "MazeAPI.dll"]
