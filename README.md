@@ -13,4 +13,5 @@ The following commands should set up a running instance of the system, accessibl
 - `cd ../maze-client`
 - `docker build -t mazeclient .`
 - `cd ..`
+- `docker stack init`
 - `docker stack deploy -c docker-compose.yml maze`
