@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.0.0-runtime-jessie
+FROM microsoft/aspnetcore:2.0
 COPY . /app
 WORKDIR /app/bin/Release/PublishOutput
 
